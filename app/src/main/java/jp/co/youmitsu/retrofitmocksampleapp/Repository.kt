@@ -3,9 +3,13 @@ package jp.co.youmitsu.retrofitmocksampleapp
 import android.annotation.SuppressLint
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import jp.co.youmitsu.retrofitmocksampleapp.net.ZipApiClientCreator
+import jp.co.youmitsu.retrofitmocksampleapp.net.ZipApiClient
+import javax.inject.Inject
 
-class Repository {
+class Repository @Inject constructor() {
+
+    @Inject
+    lateinit var zipApiClient: ZipApiClient
 
     companion object {
         const val errorMessage = "エラーが発生しました"
@@ -13,8 +17,7 @@ class Repository {
 
     @SuppressLint("CheckResult")
     fun searchZipCode(entry: String?, onSuccess: (result: List<ZipData>) -> Unit, onFailed: (message: String) -> Unit) {
-        val client = ZipApiClientCreator.create()
-        client.search(entry ?: "")
+        zipApiClient.search(entry ?: "")
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ result: ZipDataList ->

@@ -4,7 +4,6 @@ import dagger.Module
 import dagger.Provides
 import jp.co.youmitsu.retrofitmocksampleapp.net.ZipApiClient
 import jp.co.youmitsu.retrofitmocksampleapp.net.ZipApiClientCreator
-import javax.inject.Singleton
 
 @Module
 class AppModule {
@@ -29,7 +28,6 @@ class AppModule {
 //            .client(client)
 //            .build()
     @Provides
-    @Singleton
     fun provideZipApiClient(): ZipApiClient {
         return ZipApiClientCreator.create()
     }

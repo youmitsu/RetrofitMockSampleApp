@@ -11,17 +11,20 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import dagger.android.AndroidInjection
 import jp.co.youmitsu.retrofitmocksampleapp.databinding.ActivityMainBinding
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
 
+    @Inject
     lateinit var repository: Repository
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
-        repository = Repository()
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.list.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
